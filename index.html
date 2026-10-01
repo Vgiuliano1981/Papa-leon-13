@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>León XIV</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&family=Hanken+Grotesk:wght@400;500;700&display=swap">
+<style>
+:root{
+  box-sizing:border-box;
+  --bg:#0c1030;--bg2:#161b4a;--ink:#f1eee6;--muted:#aab0d6;--gold:#e6b655;--red:#d5483b;--card:rgba(255,255,255,.06);--line:rgba(230,182,85,.35);
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#f2f0ea;--bg2:#e3e6f3;--ink:#10153a;--muted:#4a5080;--gold:#9a6a10;--red:#b8352a;--card:rgba(16,21,58,.06);--line:rgba(154,106,16,.4)}}
+:root[data-theme="light"]{--bg:#f2f0ea;--bg2:#e3e6f3;--ink:#10153a;--muted:#4a5080;--gold:#9a6a10;--red:#b8352a;--card:rgba(16,21,58,.06);--line:rgba(154,106,16,.4)}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1.05rem/1.65 "Hanken Grotesk",system-ui,sans-serif;overflow-x:hidden}
+h1,h2,h3{font-family:"Cormorant Garamond",Georgia,serif;font-weight:700;line-height:1.02;margin:0}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+/* progreso */
+#bar{position:fixed;top:env(safe-area-inset-top,0px);left:0;height:3px;width:0;background:linear-gradient(90deg,var(--gold),var(--red));z-index:50}
+
+/* HERO */
+.hero{position:relative;min-height:100vh;min-height:100svh;display:grid;place-items:center;text-align:center;padding:4rem 1.2rem;overflow:hidden;isolation:isolate;
+  background:radial-gradient(120% 90% at 50% 100%,var(--bg2),var(--bg) 70%)}
+.rays{position:absolute;inset:-40%;z-index:-1;background:repeating-conic-gradient(from 0deg at 50% 55%,color-mix(in srgb,var(--gold) 22%,transparent) 0 4deg,transparent 4deg 15deg);
+  -webkit-mask:radial-gradient(circle at 50% 55%,#000 0,transparent 62%);mask:radial-gradient(circle at 50% 55%,#000 0,transparent 62%);
+  animation:spin 120s linear infinite;transform:translate(var(--mx,0),var(--my,0))}
+@keyframes spin{to{rotate:360deg}}
+.glow{position:absolute;width:46vmax;height:46vmax;border-radius:50%;z-index:-1;left:var(--gx,50%);top:var(--gy,55%);translate:-50% -50%;
+  background:radial-gradient(circle,color-mix(in srgb,var(--gold) 35%,transparent),transparent 65%);transition:left .6s ease-out,top .6s ease-out}
+.kicker{font-size:.95rem;color:var(--muted);letter-spacing:.04em;margin:0 0 1.2rem;opacity:0;animation:up .9s .2s forwards}
+.name{font-size:clamp(4.2rem,17vw,13rem);letter-spacing:-.01em;display:flex;justify-content:center;gap:.04em;flex-wrap:wrap}
+.name .w{display:inline-flex;gap:.01em}
+.name span.l{display:inline-block;opacity:0;transform:translateY(60%) rotateX(70deg);animation:letter .9s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:calc(var(--i)*70ms + .4s)}
+.name .xiv .l{color:var(--gold)}
+@keyframes letter{to{opacity:1;transform:none}}
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.first{font:italic 500 clamp(1.3rem,3.4vw,2.1rem)/1.3 "Cormorant Garamond",serif;max-width:30ch;margin:1.6rem auto 0;opacity:0;animation:up 1s 1.7s forwards}
+.first small{display:block;font:400 .85rem "Hanken Grotesk",sans-serif;color:var(--muted);margin-top:.5rem;font-style:normal}
+.cue{position:absolute;bottom:1.6rem;left:50%;translate:-50% 0;width:26px;height:44px;border:2px solid var(--line);border-radius:14px;opacity:0;animation:up 1s 2.3s forwards}
+.cue::after{content:"";position:absolute;left:50%;top:8px;width:4px;height:8px;margin-left:-2px;border-radius:2px;background:var(--gold);animation:drop 1.6s infinite}
+@keyframes drop{0%{opacity:0;transform:translateY(0)}30%{opacity:1}100%{opacity:0;transform:translateY(16px)}}
+
+/* nav tema */
+.theme{position:fixed;right:1rem;top:calc(1rem + env(safe-area-inset-top,0px));z-index:60;border:1px solid var(--line);background:var(--card);color:var(--ink);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);width:42px;height:42px;border-radius:50%;cursor:pointer;font-size:1.1rem;transition:transform .4s,background .3s}
+.theme:hover{transform:rotate(180deg)}
+
+/* secciones */
+section{padding:clamp(4rem,10vw,8rem) 1.4rem;max-width:1100px;margin:0 auto}
+h2{font-size:clamp(2.4rem,6vw,4.4rem);margin-bottom:1.2rem}
+.lead{max-width:62ch;color:var(--muted);font-size:1.15rem}
+
+/* datos */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-top:3rem}
+.stat{border:1px solid var(--line);border-radius:22px 6px 22px 6px;padding:1.6rem;background:var(--card);transition:transform .4s cubic-bezier(.2,.8,.2,1),border-color .3s}
+.stat:hover{border-color:var(--gold)}
+.stat b{display:block;font:700 clamp(2.6rem,6vw,3.8rem)/1 "Cormorant Garamond",serif;color:var(--gold)}
+.stat span{color:var(--muted);font-size:.95rem}
+
+/* timeline */
+.tl{position:relative;margin-top:3rem;padding-left:2.2rem}
+.tl::before{content:"";position:absolute;left:7px;top:0;bottom:0;width:2px;background:var(--line)}
+.tl .fill{position:absolute;left:7px;top:0;width:2px;height:0;background:linear-gradient(var(--gold),var(--red))}
+.ev{position:relative;margin-bottom:1.1rem;border:1px solid transparent;border-radius:14px;padding:1rem 1.2rem;cursor:pointer;opacity:0;transform:translateX(-24px);transition:opacity .7s,transform .7s cubic-bezier(.2,.8,.2,1),background .3s,border-color .3s}
+.ev.in{opacity:1;transform:none}
+.ev:hover,.ev:focus-visible{background:var(--card);border-color:var(--line)}
+.ev::before{content:"";position:absolute;left:calc(-2.2rem + 1px);top:1.55rem;width:14px;height:14px;border-radius:50%;background:var(--bg);border:2px solid var(--gold);transition:background .3s,transform .3s}
+.ev.open::before,.ev:hover::before{background:var(--gold);transform:scale(1.35)}
+.ev h3{font-size:1.9rem;display:flex;gap:.8rem;align-items:baseline;flex-wrap:wrap}
+.ev h3 em{font:500 1rem "Hanken Grotesk",sans-serif;font-style:normal;color:var(--gold)}
+.ev p{margin:0;color:var(--muted);max-height:0;overflow:hidden;transition:max-height .5s ease,margin .5s}
+.ev.open p{max-height:12rem;margin-top:.5rem}
+.ev .hint{font-size:.8rem;color:var(--muted);opacity:.7}
+
+/* pilares */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.2rem;margin-top:3rem;perspective:900px}
+.card{position:relative;border:1px solid var(--line);border-radius:6px 26px 6px 26px;padding:2rem 1.6rem;background:var(--card);transform:rotateX(var(--rx,0)) rotateY(var(--ry,0));transition:transform .25s ease-out;overflow:hidden}
+.card::after{content:"";position:absolute;inset:0;background:radial-gradient(260px circle at var(--px,50%) var(--py,50%),color-mix(in srgb,var(--gold) 25%,transparent),transparent 60%);opacity:0;transition:opacity .3s;pointer-events:none}
+.card:hover::after{opacity:1}
+.card h3{font-size:2rem;margin-bottom:.6rem}
+.card p{margin:0;color:var(--muted)}
+
+/* lema */
+.motto{text-align:center;max-width:none;background:linear-gradient(var(--bg),var(--bg2),var(--bg))}
+.motto blockquote{margin:0 auto;max-width:22ch}
+.motto q{font:italic 500 clamp(2.4rem,8vw,5.4rem)/1.05 "Cormorant Garamond",serif;quotes:none}
+.motto cite{display:block;margin-top:1.4rem;color:var(--muted);font-style:normal}
+
+footer{text-align:center;color:var(--muted);padding:3rem 1rem 4rem;font-size:.9rem}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .name span.l,.kicker,.first,.cue,.ev{opacity:1!important;transform:none!important}
+  .ev p{max-height:none;margin-top:.5rem}
+}
+</style>
+</head>
+<body>
+<div id="bar"></div>
+<button class="theme" id="theme" aria-label="Cambiar entre tema claro y oscuro">◐</button>
+
+<header class="hero" id="hero">
+  <div class="rays"></div><div class="glow"></div>
+  <div>
+    <p class="kicker">Papa número 267 de la Iglesia católica</p>
+    <h1 class="name" aria-label="León XIV"></h1>
+    <p class="first">«La paz esté con todos ustedes.»<small>Sus primeras palabras desde el balcón, 8 de mayo de 2025</small></p>
+  </div>
+  <div class="cue" aria-hidden="true"></div>
+</header>
+
+<section id="quien">
+  <h2>De Chicago a Roma, pasando por Perú</h2>
+  <p class="lead">Robert Francis Prevost nació el 14 de septiembre de 1955 en Chicago. Es el primer papa estadounidense y el primer agustino en el cargo. También es ciudadano peruano desde 2015: pasó buena parte de su vida de misionero y obispo en el norte de Perú.</p>
+  <div class="stats">
+    <div class="stat"><b data-n="267">0</b><span>Sucesor de Pedro número 267</span></div>
+    <div class="stat"><b data-n="1955">0</b><span>Año de nacimiento, en Chicago</span></div>
+    <div class="stat"><b data-n="2">0</b><span>Nacionalidades: estadounidense y peruana</span></div>
+    <div class="stat"><b data-n="14">0</b><span>Papas se llamaron León antes que él, contando desde León I hasta XIII</span></div>
+  </div>
+</section>
+
+<section id="camino">
+  <h2>Su camino</h2>
+  <p class="lead">Tocá cada hito para abrirlo.</p>
+  <div class="tl" id="tl"><div class="fill" id="fill"></div>
+    <div class="ev" tabindex="0" role="button" aria-expanded="false"><h3><em>1955</em>Nace en Chicago</h3><p>Nace el 14 de septiembre en Illinois, con raíces familiares francesas, italianas y españolas.</p></div>
+    <div class="ev" tabindex="0" role="button" aria-expanded="false"><h3><em>1977</em>Ingresa a los agustinos</h3><p>Entra al noviciado de la Orden de San Agustín. Antes estudió matemáticas; después estudió teología en Chicago y derecho canónico en Roma.</p></div>
+    <div class="ev" tabindex="0" role="button" aria-expanded="false"><h3><em>1982</em>Es ordenado sacerdote</h3><p>Hizo sus votos solemnes en 1981 y fue ordenado sacerdote el 19 de junio de 1982.</p></div>
+    <div class="ev" tabindex="0" role="button" aria-expanded="false"><h3><em>1985</em>Misionero en Perú</h3><p>Llega a la misión agustina en Chulucanas. Más tarde dirige la formación de jóvenes agustinos en Trujillo.</p></div>
+    <div class="ev" tabindex="0" role="button" aria-expanded="false"><h3><em>2001</em>Prior general de la orden</h3><p>Lidera a los agustinos de todo el mundo hasta 2013.</p></div>
+    <div class="ev" tabindex="0" role="button" aria-expanded="false"><h3><em>2015</em>Obispo de Chiclayo</h3><p>El papa Francisco lo nombra obispo de Chiclayo, Perú, y ese mismo año obtiene la ciudadanía peruana.</p></div>
+    <div class="ev" tabindex="0" role="button" aria-expanded="false"><h3><em>2023</em>Cardenal y prefecto</h3><p>Es nombrado prefecto del Dicasterio para los Obispos en enero y creado cardenal el 30 de septiembre.</p></div>
+    <div class="ev" tabindex="0" role="button" aria-expanded="false"><h3><em>2025</em>Elegido papa</h3><p>El 8 de mayo es elegido y toma el nombre de León XIV. Su misa de inicio de pontificado fue el 18 de mayo.</p></div>
+  </div>
+</section>
+
+<section id="nombre">
+  <h2>Por qué «León»</h2>
+  <p class="lead">Explicó que eligió el nombre en honor a León XIII, autor de la encíclica <i>Rerum Novarum</i> sobre la justicia social en la era industrial. Tres ideas guían su mensaje.</p>
+  <div class="cards">
+    <div class="card"><h3>Paz</h3><p>Fue el centro de su primer saludo y sigue repitiendo que la paz es responsabilidad de todos.</p></div>
+    <div class="card"><h3>Justicia social</h3><p>Mira hacia los más vulnerables, en la línea de León XIII y los desafíos de un mundo que cambia.</p></div>
+    <div class="card"><h3>Unidad</h3><p>Su lema, tomado de san Agustín, resume el camino: construir comunión entre personas distintas.</p></div>
+  </div>
+</section>
+
+<section class="motto" id="lema">
+  <blockquote><q>In Illo uno unum</q><cite>«En aquel uno, somos uno». Lema episcopal de León XIV, de san Agustín</cite></blockquote>
+</section>
+
+<footer>Hecho con cariño. Datos biográficos de fuentes públicas.</footer>
+
+<script>
+(function(){
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // nombre con letras animadas
+  var h=document.querySelector('.name'),i=0;
+  ['LEÓN','XIV'].forEach(function(word,k){
+    var w=document.createElement('span');w.className='w'+(k?' xiv':'');w.setAttribute('aria-hidden','true');
+    word.split('').forEach(function(c){var s=document.createElement('span');s.className='l';s.style.setProperty('--i',i++);s.textContent=c;w.appendChild(s)});
+    h.appendChild(w);
+  });
+  // mouse: rayos y brillo
+  var hero=document.getElementById('hero');
+  hero.addEventListener('pointermove',function(e){
+    var r=hero.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
+    hero.style.setProperty('--gx',x*100+'%');hero.style.setProperty('--gy',y*100+'%');
+    if(!reduce){hero.style.setProperty('--mx',(x-.5)*-40+'px');hero.style.setProperty('--my',(y-.5)*-40+'px')}
+  });
+  // barra de progreso y línea de tiempo
+  var bar=document.getElementById('bar'),tl=document.getElementById('tl'),fill=document.getElementById('fill');
+  function onScroll(){
+    var d=document.documentElement,p=d.scrollTop/(d.scrollHeight-d.clientHeight||1);
+    bar.style.width=(p*100)+'%';
+    var r=tl.getBoundingClientRect(),vh=innerHeight;
+    var f=Math.min(Math.max((vh*.6-r.top)/r.height,0),1);
+    fill.style.height=(f*100)+'%';
+  }
+  addEventListener('scroll',onScroll,{passive:true});onScroll();
+  // eventos
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.25});
+  document.querySelectorAll('.ev').forEach(function(ev){
+    io.observe(ev);
+    function t(){var o=ev.classList.toggle('open');ev.setAttribute('aria-expanded',o)}
+    ev.addEventListener('click',t);
+    ev.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();t()}});
+  });
+  // contadores
+  var co=new IntersectionObserver(function(es){es.forEach(function(e){
+    if(!e.isIntersecting)return;co.unobserve(e.target);
+    var b=e.target,n=+b.dataset.n,s=null;
+    if(reduce){b.textContent=n;return}
+    (function step(t){if(!s)s=t;var p=Math.min((t-s)/1400,1),v=1-Math.pow(1-p,3);b.textContent=Math.round(n*v);if(p<1)requestAnimationFrame(step)})(performance.now());
+  })},{threshold:.6});
+  document.querySelectorAll('[data-n]').forEach(function(b){co.observe(b)});
+  // tarjetas con inclinación
+  document.querySelectorAll('.card').forEach(function(c){
+    c.addEventListener('pointermove',function(e){
+      var r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
+      c.style.setProperty('--px',x*100+'%');c.style.setProperty('--py',y*100+'%');
+      if(!reduce){c.style.setProperty('--ry',((x-.5)*10)+'deg');c.style.setProperty('--rx',((.5-y)*10)+'deg')}
+    });
+    c.addEventListener('pointerleave',function(){c.style.setProperty('--rx','0deg');c.style.setProperty('--ry','0deg')});
+  });
+  // tema
+  var root=document.documentElement;
+  document.getElementById('theme').addEventListener('click',function(){
+    var dark=root.dataset.theme?root.dataset.theme==='dark':!matchMedia('(prefers-color-scheme: light)').matches;
+    root.dataset.theme=dark?'light':'dark';
+  });
+})();
+</script>
+</body>
+</html>
